@@ -15,8 +15,10 @@ struct Library{
 vector<Library> lib;
 
 void bookReturn(string s){
+  bool found=false;
   for(auto& book:lib){
     if(s==book.title){
+      found=true;
       if(!book.Available){
         cout<<"The book is returned to the Library"<<endl;
         book.Available=true;
@@ -24,8 +26,10 @@ void bookReturn(string s){
       else{
         cout<<"The book is already available in the library so you did not borrow it"<<endl;
       }
+      break;
     }
     else if(s==book.ISBN){
+      found=true;
       if(!book.Available){
         cout<<"The book is returned to the Library"<<endl;
         book.Available=true;
@@ -33,8 +37,10 @@ void bookReturn(string s){
       else{
         cout<<"The book is already available in the library so you did not borrow it"<<endl;
       }
+      break;
     }
     else if(s==book.author){
+      found=true;
       if(!book.Available){
         cout<<"The book is returned to the Library"<<endl;
         book.Available=true;
@@ -42,7 +48,12 @@ void bookReturn(string s){
       else{
         cout<<"The book is already available in the library so you did not borrow it"<<endl;
       }
+      break;
     }
+  }
+
+  if(!found){
+    cout<<"No book is found in the library matching:"<<s<<"Please check again";
   }
 }
 
@@ -136,7 +147,7 @@ int main(){
     if(y==1){
       cout<<"Tell me which book you want to borrow:"<<endl;
       cin>>str;
-      cout<<"Tell me how many days do you want to borrow the book for:"<,endl;
+      cout<<"Tell me how many days do you want to borrow the book for:"<<endl;
       cin>>z;
       checkOut(str);
     }
