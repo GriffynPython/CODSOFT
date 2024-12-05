@@ -3,8 +3,7 @@
 
 using namespace std;
 
-// Function to display the board
-void displayBoard(const vector<char>& board) {
+void Board(const vector<char>& board) {
     cout << "\n";
     for (int i = 0; i < 9; i += 3) {
         cout << " " << board[i] << " | " << board[i + 1] << " | " << board[i + 2] << "\n";
@@ -13,21 +12,21 @@ void displayBoard(const vector<char>& board) {
     cout << "\n";
 }
 
-// Function to check for a winner
-char checkWinner(const vector<char>& board) {
-    // Check rows, columns, and diagonals
-    for (int i = 0; i < 3; ++i) {
-        if (board[i] == board[i + 3] && board[i] == board[i + 6]) return board[i]; // Columns
-        if (board[3 * i] == board[3 * i + 1] && board[3 * i] == board[3 * i + 2]) return board[3 * i]; // Rows
-    }
-    if (board[0] == board[4] && board[0] == board[8]) return board[0]; // Main diagonal
-    if (board[2] == board[4] && board[2] == board[6]) return board[2]; // Anti-diagonal
 
-    return ' '; // No winner yet
+char Winner(const vector<char>& board) {
+    
+    for (int i = 0; i < 3; ++i) {
+        if (board[i] == board[i + 3] && board[i] == board[i + 6]) return board[i]; 
+        if (board[3 * i] == board[3 * i + 1] && board[3 * i] == board[3 * i + 2]) return board[3 * i]; 
+    }
+    if (board[0] == board[4] && board[0] == board[8]) return board[0]; 
+    if (board[2] == board[4] && board[2] == board[6]) return board[2]; 
+
+    return ' '; 
 }
 
-// Function to check if the board is full (draw)
-bool isDraw(const vector<char>& board) {
+
+bool Draw(const vector<char>& board) {
     for (char cell : board) {
         if (cell != 'X' && cell != 'O') return false;
     }
@@ -36,51 +35,51 @@ bool isDraw(const vector<char>& board) {
 
 int main() {
     cout << "Press 'a' to start the game: ";
-    char start;
-    cin >> start;
+    char st;
+    cin >> st;
 
-    if (start != 'a') {
-        cout << "Invalid input. Exiting.\n";
+    if (st != 'a') {
+        cout << "You did not press a! Exiting.\n";
         return 0;
     }
 
-    vector<char> board(9); // Tic-tac-toe board
-    for (int i = 0; i < 9; ++i) board[i] = '1' + i; // Initialize with cell numbers
+    vector<char> board(9); 
+    for (int i = 0; i < 9; ++i) board[i] = '1' + i; 
 
     char currentPlayer = 'X';
     while (true) {
-        displayBoard(board);
+        Board(board);
 
-        cout << "Player " << currentPlayer << ", enter your move (1-9): ";
-        int move;
-        cin >> move;
+        cout << "Player " << ctPlr << ", enter your move (1-9): ";
+        int mv;
+        cin >> mv;
 
-        // Validate move
-        if (move < 1 || move > 9 || board[move - 1] == 'X' || board[move - 1] == 'O') {
-            cout << "Invalid move! Try again.\n";
+        
+        if (mv < 1 || mv > 9 || board[mv - 1] == 'X' || board[mv - 1] == 'O') {
+            cout << "Only 1-9 is allowed and no overlapping of moves please! Try again.\n";
             continue;
         }
 
-        // Make the move
-        board[move - 1] = currentPlayer;
+        
+        board[mv - 1] = ctPlayer;
 
-        // Check for a winner
-        char winner = checkWinner(board);
+        
+        char winner = Winner(board);
         if (winner != ' ') {
-            displayBoard(board);
+            Board(board);
             cout << "Player " << winner << " wins!\n";
             break;
         }
 
-        // Check for a draw
-        if (isDraw(board)) {
-            displayBoard(board);
-            cout << "It's a draw!\n";
+        
+        if (Draw(board)) {
+            Board(board);
+            cout << "Unfortunately it's a draw! Please Try Again!\n";
             break;
         }
 
-        // Switch player
-        currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+        
+        ctPlayer = (ctPlayer == 'X') ? 'O' : 'X';
     }
 
     return 0;
