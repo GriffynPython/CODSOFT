@@ -12,13 +12,6 @@ void Board(const vector<char>& board) {
     cout << "\n";
 }
 
-bool Draw(const vector<char>& board) {
-    for (char cell : board) {
-        if (cell != 'X' && cell != 'O') return false;
-    }
-    return true;
-}
-
 int main() {
     cout << "Press 'a' to start the game: ";
     char st;
