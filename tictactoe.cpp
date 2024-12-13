@@ -59,6 +59,7 @@ int main() {
             //This block checks for rows.
         if (board[3 * i] == board[3 * i + 1] && board[3 * i] == board[3 * i + 2]){
             cout << "Player " << board[3 * i] << " wins!\n";
+            Board(board);
             gameOver = true;
             break;
         } // Rows
@@ -66,11 +67,13 @@ int main() {
         //This block checks for main diagonal from top left to bottom right
         if (board[0] == board[4] && board[0] == board[8]){
             cout << "Player " << board[0] << " wins!\n";
+            Board(board);
             gameOver = true;
         } // Main diagonal
         //This block checks for anti-diagonal from top-right to bottom left.
         if (board[2] == board[4] && board[2] == board[6]){
             cout << "Player " << board[2] << " wins!\n";
+            Board(board);
             gameOver = true;
         }//Anti-Diagonal
         //Much easier to write this here insted of outside main funciton as another functon. It is less cconfusing.
@@ -78,6 +81,7 @@ int main() {
         for (char cell : board) {
         if (cell != 'X' && cell != 'O'){
             cout<<"It is a draw"<<endl;
+            Board(board);
             gameOver=true;
             break;
         }
