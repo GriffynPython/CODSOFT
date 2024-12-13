@@ -12,20 +12,6 @@ void Board(const vector<char>& board) {
     cout << "\n";
 }
 
-
-char Winner(const vector<char>& board) {
-    
-    for (int i = 0; i < 3; ++i) {
-        if (board[i] == board[i + 3] && board[i] == board[i + 6]) return board[i]; 
-        if (board[3 * i] == board[3 * i + 1] && board[3 * i] == board[3 * i + 2]) return board[3 * i]; 
-    }
-    if (board[0] == board[4] && board[0] == board[8]) return board[0]; 
-    if (board[2] == board[4] && board[2] == board[6]) return board[2]; 
-
-    return ' '; 
-}
-
-
 bool Draw(const vector<char>& board) {
     for (char cell : board) {
         if (cell != 'X' && cell != 'O') return false;
@@ -47,7 +33,8 @@ int main() {
     for (int i = 0; i < 9; ++i) board[i] = '1' + i; 
 
     char currentPlayer = 'X';
-    while (true) {
+    bool gameOver=false;
+    while (!gameOver) {
         Board(board);
 
         cout << "Player " << ctPlr << ", enter your move (1-9): ";
@@ -63,15 +50,28 @@ int main() {
         
         board[mv - 1] = ctPlayer;
 
-        
-        char winner = Winner(board);
-        if (winner != ' ') {
-            Board(board);
-            cout << "Player " << winner << " wins!\n";
+        for (int i = 0; i < 3; ++i) {
+        if (board[i] == board[i + 3] && board[i] == board[i + 6]){
+            cout << "Player " << board[i] << " wins!\n";
+            gameOver = true;
             break;
-        }
-
-        
+        } // Columns
+        if (board[3 * i] == board[3 * i + 1] && board[3 * i] == board[3 * i + 2]){
+            cout << "Player " << board[3 * i] << " wins!\n";
+            gameOver = true;
+            break;
+        } // Rows
+    }
+        if (board[0] == board[4] && board[0] == board[8]){
+            cout << "Player " << board[0] << " wins!\n";
+            gameOver = true;
+        } // Main diagonal
+        if (board[2] == board[4] && board[2] == board[6]){
+            cout << "Player " << board[2] << " wins!\n";
+            gameOver = true;
+        }//Anti-Diagonal
+        if(gameOver) break;
+        //Check for draw
         if (Draw(board)) {
             Board(board);
             cout << "Unfortunately it's a draw! Please Try Again!\n";
