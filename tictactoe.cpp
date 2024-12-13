@@ -32,7 +32,7 @@ int main() {
     vector<char> board(9); 
     for (int i = 0; i < 9; ++i) board[i] = '1' + i; 
 
-    char currentPlayer = 'X';
+    char ctPlr = 'X';
     bool gameOver=false;
     while (!gameOver) {
         Board(board);
@@ -70,14 +70,15 @@ int main() {
             cout << "Player " << board[2] << " wins!\n";
             gameOver = true;
         }//Anti-Diagonal
-        if(gameOver) break;
         //Check for draw
-        if (Draw(board)) {
-            Board(board);
-            cout << "Unfortunately it's a draw! Please Try Again!\n";
+        for (char cell : board) {
+        if (cell != 'X' && cell != 'O'){
+            cout<<"It is a draw"<<endl;
+            gameOver=true;
             break;
         }
-
+    }
+        if(gameOver) break;
         
         ctPlayer = (ctPlayer == 'X') ? 'O' : 'X';
     }
